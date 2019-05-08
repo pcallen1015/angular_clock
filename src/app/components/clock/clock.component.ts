@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TimeService } from '../../services/time.service';
 
 @Component({
   selector: 'clock',
@@ -9,25 +8,39 @@ import { TimeService } from '../../services/time.service';
 export class ClockComponent implements OnInit {
   Arr = Array;
 
-  public time: string;
+  public hours: number;
+  public minutes: number;
+  public seconds: number;
   @Input() format: string;
 
-  constructor(private timeService: TimeService) {
+  constructor() {
     this.updateClock();
   }
 
-  private updateClock(): void {
-    this.time = this.timeService.getCurrentTime();
+  private zeroPad(n: number, l: number): string {
+    let s = `${n}`;
+    while (s.length < l) {
+      s = 0 + s;
+    }
+
+    return s;
   }
 
-  public calculateRotation(n): number {
-    return n * 30;
+  private updateClock(): void {
+    const now = new Date();
+    this.hours = now.getHours();
+    this.minutes = now.getMinutes();
+    this.seconds = now.getSeconds();
+  }
+
+  public getDigitalReadout(): string {
+    return `${this.zeroPad(this.hours, 2)}:${this.zeroPad(this.minutes, 2)}:${this.zeroPad(this.seconds, 2)}`;
   }
 
   ngOnInit(): void {
     setInterval(() => {
       this.updateClock();
-    }, 1000);
+    }, 500);
   }
 
 }

@@ -1,3 +1,19 @@
+$sectorAngle: 6deg;
+
+@mixin rotate($factor) {
+    transform: rotate($sectorAngle * $factor);
+}
+
+@mixin rotationClasses() {
+    $start: 0;
+    $end: 59;
+    @for $i from $start through $end {
+        .rotate-#{$i}{
+            transform: rotate($sectorAngle * $i);
+        }
+    }
+}
+
 .clock {
 
     margin: 4px;
@@ -16,6 +32,7 @@
     }
     
     > .analog {
+        @include rotationClasses();
         $dim: 500px;
         height: #{$dim};
         width: #{$dim};
@@ -70,14 +87,6 @@
                     }
                 }
 
-                $start: 0;
-                $end: 59;
-                @for $i from $start through $end {
-                    &.tick-#{$i}{
-                        transform: rotate(6deg * $i);
-                    }
-                }
-
                 > .mark {
                     position: absolute;
                     background-color: black;
@@ -88,51 +97,37 @@
                 }
             }
 
-            > .number {
-                width: 20px;
-                height: 20px;
-                border: 1px solid black;
-                box-sizing: border-box;
-                text-align: center;
-                padding: 0;
-                margin: 0;
-                position: absolute;
+            > .hand {
                 display: block;
-                font-family: Arial, Helvetica, sans-serif;
-                line-height: 20px;
+                position: absolute;
+                height: 100%;
 
-                &.number3 {
-                    top: calc(50% - 10px);
-                    right: 0;
-                }
-    
-                &.number6 {
-                    bottom: 0;
-                    left: calc(50% - 10px);
+                > .mark {
+                    position: absolute;
+                    top: 2%;
+                    height: 55%;
+                    width: 100%;
+                    background-color: black;
                 }
 
-                &.number9 {
-                    top: calc(50% - 10px);
-                    left: 0;
+                &.hour {
+                    $handWidth: 8px;
+                    width: #{$handWidth};
+                    left: calc((100% - #{$handWidth}) / 2);
                 }
-    
-                &.number12 {
-                    top: 0;
-                    left: calc(50% - 10px);
+
+                &.minute {
+                    $handWidth: 4px;
+                    width: #{$handWidth};
+                    left: calc((100% - #{$handWidth}) / 2);
+                }
+
+                &.second {
+                    $handWidth: 2px;
+                    width: #{$handWidth};
+                    left: calc((100% - #{$handWidth}) / 2);
                 }
             }
-        }
-
-        
-
-        > .hand {
-            display: block;
-            width: 100px;
-            height: 2px;
-            background-color: black;
-            position: relative;
-            left: 50%;
-            top: 50%;
         }
     }
 }
