@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ClockComponent implements OnInit {
   Arr = Array;
+  Math = Math;
 
   public hours: number;
   public minutes: number;

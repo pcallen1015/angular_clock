@@ -6,17 +6,17 @@
 
       <div class="center"></div>
 
-      <div *ngFor="let n of Arr(60).fill(1); let i = index" class="tick rotate-{{i}} {{ i % 5 === 0 ? 'major' : 'minor' }}">
+      <div *ngFor="let n of Arr(60).fill(1); let i = index" class="tick rotate-{{6*i}} {{ i % 5 === 0 ? 'major' : 'minor' }}">
         <div class="mark"></div>
       </div>
 
-      <div class="hand hour rotate-{{5*hours}}">
+      <div class="hand hour rotate-{{6*5*hours + Math.floor((minutes/60)*6*5)}}">
           <div class="mark"></div>
       </div>
-      <div class="hand minute rotate-{{minutes}}">
+      <div class="hand minute rotate-{{6*minutes + Math.floor((seconds/60)*6)}}">
           <div class="mark"></div>
       </div>
-      <div class="hand second rotate-{{seconds}}">
+      <div class="hand second rotate-{{6*seconds}}">
         <div class="mark"></div>
       </div>
 
